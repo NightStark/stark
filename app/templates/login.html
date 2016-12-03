@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block lgg_content %}
+    <h1>Sign In</h1>
+    <form action="" method="post" name="login">
+        {{ form.hidden_tag() }} <!-- without this,will get form.errors -->
+        <p>
+            Please enter your username:<br>
+            {{ form.username(size=80) }}<br>
+            {% for error in form.username.errors %}
+                <span style="color:red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.remember_me }} Remember Me</p>
+        {% for error in form.errors %}
+            <span style="color:red;">[{{ error }}]</span>
+        {% endfor %}
+        <p><input type="submit" value="Sign In"></p>
+    </form>
+{% endblock %}

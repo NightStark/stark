@@ -5,7 +5,15 @@
     <title>{{ title }}</title>
 </head>
 <body>
-<hr>
+<div>stark:
+    <a href="{{ url_for('index') }}">Home</a>
+    {% if current_user.is_authenticated %}
+    | Hi {{ current_user.name }}
+    | <a href="{{ url_for('logout') }}">logout</a>
+    {% else %}
+    | <a href="{{ url_for('login') }}">login</a>
+    {% endif %}
+</div>
 {% with msgs = get_flashed_messages() %}
 {% if msgs %}
 <ul>
@@ -15,5 +23,6 @@
 </ul>
 {% endif %}
 {% endwith %}
+{% block lgg_content %}{% endblock %}
 </body>
 </html>

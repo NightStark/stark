@@ -6,7 +6,18 @@ from .user_op import UserOp
 
 class LoginForm(Form):
     username = StringField('username', validators=[DataRequired()])
+    password = StringField('username', validators=[DataRequired()])
     remember_me = BooleanField('remember_me', default=False)
+    checker = UserOp()
+
+    def login_check(self):
+        self.checker.user_op_login_check(self)
+
+    def username_is_invalid(self):
+        return self.checker.username_is_invalid
+
+    def password_is_invalid(self):
+        return self.checker.password_is_invalid
 
 
 class SignUpForm(Form):
@@ -22,5 +33,9 @@ class SignUpForm(Form):
 
     def user_op_get_error(self):
         return self.checker.username_is_exit or self.checker.nickname_is_exit or self.checker.email_is_exit
+
+    def user_op_login_check(self):
+        self.checker.user_op_login_check(self)
+
 
 

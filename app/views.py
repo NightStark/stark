@@ -54,12 +54,20 @@ def login():
               form.remember_me.data.__str__())
         session['remember_me'] = form.remember_me.data
         # return oid.try_login(form.openid.data, ask_for=['nickname', 'email'])
+        form.login_check()
+        flash("form.username_is_invalid:" + form.username_is_invalid().__str__())
+        flash("form.password_is_invalid:" + form.password_is_invalid().__str__())
+        if not form.username_is_invalid() or not form.password_is_invalid():
+            return render_template('login.html',
+                                   title="Sign In",
+                                   form=form)
+
         login_user(user)
         flash('Logged in successfully.')
         # user_op = UserOp()
 
         next = request.args.get('next')
-        print(next)
+        # print(next)
 
         return redirect(next or url_for('index'))
 
@@ -100,10 +108,14 @@ def sign_up():
         else:
             flash(" not checker.get_error, checker.user_op_create")
             sign_up_form.checker.user_op_create(sign_up_form)
+            return render_template('sign_up_success.html',
+                                   title="Sign Up",
+                                   sign_up_form=sign_up_form)
 
         return render_template('sign_up.html',
                                title="Sign Up",
-                               sign_up_form=sign_up_form,)
+                               sign_up_form=sign_up_form)
+
     else:
         flash("some thing is error.")
 

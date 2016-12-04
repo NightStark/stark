@@ -1,15 +1,8 @@
 {% extends "base.html" %}
 
 {% block lgg_content %}
-<h1>Sign Up</h1>
-<form action="" method="post" name="login">
-        Please enter your username:<br>
-        {{ sign_up_form.username(size=80) }}<br>
-        {% for error in sign_up_form.username.errors %}
-        <span style="color:red;">[{{ error }}]</span>
-        {% endfor %}
-        {% if checker and checker.username_is_exit %}
-        <span style="color:red;">[username is exit]</span>
-        {% endif %}
-</form>
+<h1>Sign Up Success</h1>
+    <p>
+            to do login
+    </p>
 {% endblock %}

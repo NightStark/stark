@@ -3,7 +3,9 @@
 {% block lgg_content %}
 
 {% if g.user.is_authenticated %}
-<a href="{{ url_for('remote_cmd') }}">remote_cmd</a>
+
+{% else %}
+need <a href="{{ url_for('login') }}">login</a>
 {% endif %}
 
 {% endblock %}

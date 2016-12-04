@@ -5,7 +5,6 @@ ROLE_ADMIN = 1
 
 
 class User(db.Model):
-
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password = db.Column(db.String(64), index=True)
@@ -47,4 +46,14 @@ class Access(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % self.body
+
+
+class RemoteCmd:
+    id = db.Column(db.Integer, primary_key=True)
+    cmd = db.Column(db.String(1024), index=True, unique=True)
+
+    def __repr__(self):
+        return '<cmd %r>' % self.cmd
+
+
 

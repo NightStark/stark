@@ -127,6 +127,11 @@ def sign_up():
                            sign_up_form=sign_up_form)
 
 
+@app.route('/remote_cmd')
+def remote_cmd():
+    return render_template('remote_cmd.html')
+
+
 
 
 

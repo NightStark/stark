@@ -22,7 +22,7 @@ def before_request():
     print("before_request")
     g.user = current_user
     print(current_user)
-    traceback.print_stack()
+    # traceback.print_stack()
 
 
 @app.route('/')
@@ -31,7 +31,7 @@ def index():
     print("index current_user")
     print(current_user)
     print("index g.user")
-    print(g.user)
+    print(g.user.is_authenticated)
     #if g.user.is_authenticated():
     #    print("is_authenticated")
     return render_template("index.html", title="Home")
@@ -41,8 +41,8 @@ def index():
 def login():
     print("current_user")
     print(current_user)
-    # if g.user is not None and g.user.is_authenticated:
-        # return redirect(url_for('index'))
+    if g.user is not None and g.user.is_authenticated:
+        return redirect(url_for('index'))
 
     user = User()
     form = LoginForm()

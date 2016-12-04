@@ -3,30 +3,40 @@ from app import db, models
 
 class UserOp:
 
-    username_is_exit = False
-    nickname_is_exit = False
-    email_is_exit = False
+    def __init__(self):
+        self.username_is_exit = False
+        self.nickname_is_exit = False
+        self.email_is_exit = False
+        self.get_error = False
+        self.create_user_success =False
 
-    def __init__(self, username, nickname, email, password):
-        self.username = username
-        self.nickname = nickname
-        self.email = email
-        self.password = password
-
-    def user_op_check(self):
-
-        old_user = models.User.query.filter_by(username=self.username).first()
+    def user_op_check(self, form):
+        self.get_error = False
+        self.username_is_exit = False
+        self.nickname_is_exit = False
+        self.email_is_exit = False
+        print("username_is_exit")
+        old_user = models.User.query.filter_by(username=form.username.data).first()
         if old_user is not None:
             self.username_is_exit = True
-        old_user = models.User.query.filter_by(self.email).first()
-        if old_user is not None:
-            self.username_is_exit = True
-        old_user = models.User.query.filter_by(email=self.email).first()
-        if old_user is not None:
-            self.username_is_exit = True
+            self.get_error = True
+            print("username_is_exit")
 
-    def user_op_create(self):
-        user = models.User(username=self.username, password=self.password, nickname=self.email, email=self.email)
+        old_user = models.User.query.filter_by(nickname=form.nickname.data).first()
+        if old_user is not None:
+            self.nickname_is_exit = False
+            self.get_error = True
+            print("nickname_is_exit")
+
+        old_user = models.User.query.filter_by(email=form.email.data).first()
+        if old_user is not None:
+            self.email_is_exit = True
+            self.get_error = True
+            print("email_is_exit")
+
+    def user_op_create(self, form):
+        user = models.User(username=form.username.data, password=form.password.data, nickname=form.email.data, email=form.email.data)
         db.session.add(user)
         db.session.commit()
+        self.create_user_success = True
 

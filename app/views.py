@@ -87,7 +87,23 @@ def sign_up():
         flash('Login requested for username="' +
               sign_up_form.username.data + '" email=' +
               sign_up_form.email.data)
-        return redirect(next or url_for('index'))
+        flash("sign_up_form user_op_check")
+        sign_up_form.user_op_check()
+        if sign_up_form.user_op_get_error():
+            flash("checker.get_error: username: "+sign_up_form.checker.username_is_exit.__str__()+
+                  "   nickname:"+sign_up_form.checker.nickname_is_exit.__str__() +
+            "  email: " + sign_up_form.checker.email_is_exit.__str__() +
+            "  get_error: " + sign_up_form.checker.get_error.__str__())
+            return render_template('sign_up.html',
+                                   title="Sign Up",
+                                   sign_up_form=sign_up_form)
+        else:
+            flash(" not checker.get_error, checker.user_op_create")
+            sign_up_form.checker.user_op_create(sign_up_form)
+
+        return render_template('sign_up.html',
+                               title="Sign Up",
+                               sign_up_form=sign_up_form,)
     else:
         flash("some thing is error.")
 

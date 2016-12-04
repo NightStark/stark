@@ -27,7 +27,7 @@ class UserOp:
 
         old_user = models.User.query.filter_by(nickname=form.nickname.data).first()
         if old_user is not None:
-            self.nickname_is_exit = False
+            self.nickname_is_exit = True
             self.get_error = True
             print("nickname_is_exit")
 

@@ -8,7 +8,7 @@
 <div>stark:
     <a href="{{ url_for('index') }}">Home</a>
     {% if g.user.is_authenticated %}
-    | Hi {{ current_user.name }}
+    | Hi {{ g.user.username }}
     | <a href="{{ url_for('logout') }}">logout</a>
     {% else %}
     | <a href="{{ url_for('login') }}">login</a>

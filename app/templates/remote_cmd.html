@@ -3,7 +3,44 @@
 {% block lgg_content %}
 
 {% if g.user.is_authenticated %}
+<h1>Remote CMd</h1>
+<form action="" method="post" name="remote_cmd">
+    {{ remote_cmd_form.hidden_tag() }} <!-- without this,will get form.errors -->
 
+    <p>
+    {% if r_cmd_results %}
+        run cmd result:<br>
+        {% for lines in r_cmd_results %}
+            {% for line in lines %}
+                <p>{{ line }}</p>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    </p>
+
+    <p>
+        Please enter a new remote cmd:<br>
+        cmd name:
+        {{ remote_cmd_form.remote_cmd_name(size=80) }}<br>
+        {% for error in remote_cmd_form.remote_cmd_name.errors %}
+        <span style="color:red;">[{{ error }}]</span>
+        {% endfor %}
+        cmd:
+        {{ remote_cmd_form.remote_cmd(size=80) }}<br>
+        {% for error in remote_cmd_form.remote_cmd.errors %}
+        <span style="color:red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    {% for error in remote_cmd_form.errors %}
+    <span style="color:red;">[{{ error }}]</span>
+    {% endfor %}
+    <p><input type="submit" value="add remote cmd"></p>
+    {% for cmd in all_cmds %} <!-- cmd is a object define int models -->
+    <p>{{ cmd.id }}| {{ cmd.cmd_name }} | {{ cmd.cmd }}
+        | <a href="{{ url_for('remote_cmd') }}/{{ cmd.id }}">run this cmd</a>
+        | <a href="{{ url_for('remote_cmd') }}/delete/{{ cmd.id }}">delete this cmd</a></p>
+    {% endfor %}
+</form>
 {% else %}
 need <a href="{{ url_for('login') }}">login</a>
 {% endif %}

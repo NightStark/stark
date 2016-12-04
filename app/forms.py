@@ -41,6 +41,11 @@ class SignUpForm(Form):
         self.checker.user_op_login_check(self)
 
 
+class RemoteCmdForm(Form):
+    remote_cmd_name = StringField('remote_cmd_name', validators=[DataRequired()])
+    remote_cmd = StringField('remote_cmd', validators=[DataRequired()])
+
+
 
 
 

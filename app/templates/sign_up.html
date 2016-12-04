@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block lgg_content %}
+    <h1>Sign Up</h1>
+    <form action="" method="post" name="login">
+        {{ sign_up_form.hidden_tag() }} <!-- without this,will get form.errors -->
+        <p>
+            Please enter your username:<br>
+            {{ sign_up_form.username(size=80) }}<br>
+            {% for error in sign_up_form.username.errors %}
+                <span style="color:red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+         <p>
+            Please enter your password:<br>
+            {{ sign_up_form.password(size=80) }}<br>
+            {% for error in sign_up_form.password.errors %}
+                <span style="color:red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        {% for error in sign_up_form.errors %}
+            <span style="color:red;">[{{ error }}]</span>
+        {% endfor %}
+        <p><input type="submit" value="Sign In"></p>
+    </form>
+{% endblock %}

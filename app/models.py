@@ -8,10 +8,10 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
-    password = db.Column(db.String(64), index=True, unique=True)
+    password = db.Column(db.String(64), index=True)
     nickname = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
-    # posts = db.relationship('Post', backref='author', lazy="dynamic")
+    access = db.relationship('Access', backref='author', lazy="dynamic")
 
     @staticmethod
     def is_authenticated():
@@ -36,4 +36,14 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User:%r>' % self.nickname
+
+
+class Access(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    administrator = db.Column(db.Boolean)
+    connect_server = db.Column(db.Boolean)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Post %r>' % self.body
 

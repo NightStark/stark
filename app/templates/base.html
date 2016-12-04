@@ -13,6 +13,7 @@
     {% else %}
     | <a href="{{ url_for('login') }}">login</a>
     {% endif %}
+    | <a href="{{ url_for('sign_up') }}">Sign Up</a>
 </div>
 {% with msgs = get_flashed_messages() %}
 {% if msgs %}

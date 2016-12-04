@@ -1,8 +1,9 @@
 from flask import render_template, g, flash, session, redirect, url_for, request
 from app import app, lm
-from .forms import LoginForm
+from .forms import LoginForm, SignUpForm
 from flask.ext.login import LoginManager, login_manager, login_user, current_user, logout_user
 from .models import User
+from .user_op import UserOp
 import traceback
 
 
@@ -55,6 +56,7 @@ def login():
         # return oid.try_login(form.openid.data, ask_for=['nickname', 'email'])
         login_user(user)
         flash('Logged in successfully.')
+        # user_op = UserOp()
 
         next = request.args.get('next')
         print(next)
@@ -64,6 +66,7 @@ def login():
         # return redirect(url_for('index'))
     else:
         flash("some thing is error.")
+
     return render_template('login.html',
                            title="Sign In",
                            form=form)
@@ -73,6 +76,24 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.route('/sign_up', methods=['GET', 'POST'])
+def sign_up():
+    flash("sign up")
+    sign_up_form = SignUpForm()
+    flash(sign_up_form.validate_on_submit())
+    if sign_up_form.validate_on_submit():
+        flash('Login requested for username="' +
+              sign_up_form.username.data + '" email=' +
+              sign_up_form.email.data)
+        return redirect(next or url_for('index'))
+    else:
+        flash("some thing is error.")
+
+    return render_template('sign_up.html',
+                           title="Sign Up",
+                           sign_up_form=sign_up_form)
 
 
 

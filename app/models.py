@@ -25,11 +25,12 @@ class User(db.Model):
     def is_anonymous():
         return True
 
-    @staticmethod
-    def get_id():
+    # @staticmethod with this can not be call , at others place
+    def get_id(self):  # login_user, will call this func
         # return unicode(self.id)
-        print("get id")
-        return id.__str__()
+        print("get_id get id")
+        print(self.id.__str__())
+        return self.id.__str__()
 
     def get(self):
         return self

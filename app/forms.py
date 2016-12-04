@@ -19,6 +19,9 @@ class LoginForm(Form):
     def password_is_invalid(self):
         return self.checker.password_is_invalid
 
+    def user_op_get_user(self):
+        return self.checker.user
+
 
 class SignUpForm(Form):
     username = StringField('username', validators=[DataRequired()])
@@ -36,6 +39,8 @@ class SignUpForm(Form):
 
     def user_op_login_check(self):
         self.checker.user_op_login_check(self)
+
+
 
 
 

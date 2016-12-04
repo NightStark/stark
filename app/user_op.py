@@ -11,6 +11,7 @@ class UserOp:
         self.create_user_success = False
         self.username_is_invalid = True
         self.password_is_invalid = True
+        self.user = None
 
     def user_op_check(self, form):
         self.get_error = False
@@ -57,6 +58,16 @@ class UserOp:
                 self.password_is_invalid = False
             else:
                 self.password_is_invalid = True
+                self.user = user
+
+
+def get_user_by_id(user_id):
+    user = models.User.query.filter_by(id=user_id).first()
+    return user
+
+
+
+
 
 
 

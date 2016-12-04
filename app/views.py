@@ -3,16 +3,15 @@ from app import app, lm
 from .forms import LoginForm, SignUpForm
 from flask.ext.login import LoginManager, login_manager, login_user, current_user, logout_user
 from .models import User
-from .user_op import UserOp
+from .user_op import UserOp, get_user_by_id
 import traceback
 
 
 @lm.user_loader
 def load_user(user_id):
-    print("user_id:" + user_id.__str__())
-    #traceback.print_stack()
-    #return User.get(user_id)
-    user = User()
+    print("user_id:" + user_id)
+
+    user = get_user_by_id(user_id)
 
     return user
 
@@ -21,7 +20,7 @@ def load_user(user_id):
 @app.before_request
 def before_request():
     print("before_request")
-    g.user = current_user
+    g.user = current_user  # this will call load_user
     print(current_user)
     # traceback.print_stack()
 
@@ -45,7 +44,7 @@ def login():
     if g.user is not None and g.user.is_authenticated:
         return redirect(url_for('index'))
 
-    user = User()
+    #　user = User()
     form = LoginForm()
     flash(form.validate_on_submit())
     if form.validate_on_submit():
@@ -62,9 +61,13 @@ def login():
                                    title="Sign In",
                                    form=form)
 
+        user = form.user_op_get_user()
+        user_id = getattr(user, 'get_id')()
+        flash("user id:" + user_id)
         login_user(user)
+        user_id = session.get('user_id')
+        flash("user id:" + user_id)
         flash('Logged in successfully.')
-        # user_op = UserOp()
 
         next = request.args.get('next')
         # print(next)

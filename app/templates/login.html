@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block lgg_content %}
+{% block content %}
 <h1>Sign In</h1>
 <form action="" method="post" name="login">
     {{ form.hidden_tag() }} <!-- without this,will get form.errors -->
@@ -30,4 +30,4 @@
     {% endfor %}
     <p><input type="submit" value="login"></p>
 </form>
-{% endblock %}
+{% endblock content %}

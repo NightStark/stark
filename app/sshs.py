@@ -28,7 +28,7 @@ class RemoteSsh:
                   "\n\rusername: " + self.username +
                   "\n\rpassword: " + self.password +
                   "\n\rtimeout:" + self.timeout.__str__() + "]\n")
-            self.ssh.connect('192.168.98.1', 22, "bhuroot", "Bihu400!%**%^^", timeout=5)
+            self.ssh.connect(self.ip, self.port, self.username, self.password, timeout=self.timeout)
             print('%s\t connect OK\n' % (self.ip))
         except:
             print('%s\tError\n' % (self.ip))
@@ -79,7 +79,7 @@ def ssh2(ip, username, password, cmd):
 def run_remote_cmd(cmd):
     username = "bhuroot"  # 用户名
     password = "Bihu400!%**%^^"  # 密码
-    ip = "192.168.98.1"
+    ip = "192.168.62.1"
 
     return ssh2(ip, username, password, cmd)
 

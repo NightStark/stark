@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block lgg_content %}
+{% block content %}
 
 {% if g.user.is_authenticated %}
 <h1>Remote CMd</h1>
@@ -45,4 +45,4 @@
 need <a href="{{ url_for('login') }}">login</a>
 {% endif %}
 
-{% endblock %}
+{% endblock content %}

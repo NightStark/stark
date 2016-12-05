@@ -1,0 +1,17 @@
+#box {
+	height: 600px;
+	width: 80%;
+	border: 0px solid #666;
+}
+#list {
+	height: 95%;
+	width: 20%;
+	border: 1px solid #9CC;
+	float: left;
+}
+#screen {
+	height: 95%;
+	width: 79%;
+	border: 1px solid #9CC;
+	float: right;
+}

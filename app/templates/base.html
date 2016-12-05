@@ -1,29 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-<div>stark:
-    <a href="{{ url_for('index') }}">Home</a>
-    {% if g.user.is_authenticated %}
-    | Hi {{ g.user.username }}
-    | <a href="{{ url_for('logout') }}">logout</a>
-    {% else %}
-    | <a href="{{ url_for('login') }}">login</a>
-    {% endif %}
-    | <a href="{{ url_for('sign_up') }}">Sign Up</a>
-</div>
-{% with msgs = get_flashed_messages() %}
-{% if msgs %}
-<ul>
-    {% for msg in msgs %}
-    <li>{{ msg }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-{% endwith %}
-{% block lgg_content %}{% endblock %}
-</body>
-</html>
+{% block doc -%}
+    <!DOCTYPE html>
+    <html{% block html_attribs %}{% endblock html_attribs %}>
+    {%- block html %}
+        <head>
+            {%- block head %}
+                <title>{% block title %}{{ title|default }}{% endblock title %}</title>
+
+                {%- block metas %}
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                {%- endblock metas %}
+
+                {%- block styles %}
+                    <!-- Bootstrap -->
+                    <link href="{{ bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap') }}" rel="stylesheet">
+                {%- endblock styles %}
+            {%- endblock head %}
+        </head>
+        <body{% block body_attribs %}{% endblock body_attribs %}>
+        {% block body -%}
+            {% block navbar %}
+            {%- endblock navbar %}
+            <div>stark:
+                <a href="{{ url_for('index') }}">Home</a>
+                {% if g.user.is_authenticated %}
+                    | Hi {{ g.user.username }}
+                    | <a href="{{ url_for('logout') }}">logout</a>
+                {% else %}
+                    | <a href="{{ url_for('login') }}">login</a>
+                {% endif %}
+                | <a href="{{ url_for('sign_up') }}">Sign Up</a>
+            </div>
+            {% block content -%}
+            {%- endblock content %}
+
+            {% block scripts %}
+                <script src="{{ bootstrap_find_resource('jquery.js', cdn='jquery') }}"></script>
+                <script src="{{ bootstrap_find_resource('js/bootstrap.js', cdn='bootstrap') }}"></script>
+            {%- endblock scripts %}
+        {%- endblock body %}
+        </body>
+    {%- endblock html %}
+    </html>
+{% endblock doc -%}

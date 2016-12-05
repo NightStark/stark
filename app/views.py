@@ -149,7 +149,7 @@ def remote_cmd(cmd_id=0, delete_cmd_id=0):
     remote_cmd_form = RemoteCmdForm()
     cmd_op = CmdOp()
     all_cmds = cmd_op.show_all_cmds()
-    flash(all_cmds)
+    # flash(all_cmds)
     if remote_cmd_form.validate_on_submit():
         flash("remote_cmd: " + remote_cmd_form.remote_cmd.data)
         cmd_op = CmdOp()
@@ -162,3 +162,8 @@ def remote_cmd(cmd_id=0, delete_cmd_id=0):
                            remote_cmd_form=remote_cmd_form,
                            all_cmds=all_cmds,
                            r_cmd_results=r_cmd_results)
+
+@app.route('/window')
+def windos():
+    return render_template('window.html')
+

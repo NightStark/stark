@@ -1,33 +1,28 @@
 {% extends "base.html" %}
+{% import "wtf.html" as wtf %}
+{% import "fixes.html" as fixes %}
+{% import "utils.html" as util %}
 
 {% block content %}
-<h1>Sign In</h1>
-<form action="" method="post" name="login">
-    {{ form.hidden_tag() }} <!-- without this,will get form.errors -->
-    <p>
-        Please enter your username:<br>
-        {{ form.username(size=80) }}<br>
-        {% for error in form.username.errors %}
-        <span style="color:red;">[{{ error }}]</span>
-        {% endfor %}
-        {% if not form.username_is_invalid() %}
-        <span style="color:red;">[{{ form.username.data }} is invalid]</span>
-        {% endif %}
-    </p>
-    <p>
-        Please enter your password:<br>
-        {{ form.password(size=80) }}<br>
-        {% for error in form.password.errors %}
-        <span style="color:red;">[{{ error }}]</span>
-        {% endfor %}
-        {% if not form.password_is_invalid() %}
-        <span style="color:red;">[{{ form.password.data }} is invalid]</span>
-        {% endif %}
-    </p>
-    <p>{{ form.remember_me }} Remember Me</p>
-    {% for error in form.errors %}
-    <span style="color:red;">[{{ error }}]</span>
-    {% endfor %}
-    <p><input type="submit" value="login"></p>
-</form>
+    {{ util.flashed_messages(dismissible=True) }}   <!-- show flash msg -->
+    <div class="container">
+        <h1>Sign In</h1>
+        <form action="" method="post" name="login">
+            {{ form.hidden_tag() }} <!-- without this,will get form.errors -->
+            <p>
+                {% if not form.username_is_invalid() %}
+                    <span style="color:red;">[{{ form.username.data }} is invalid]</span>
+                {% endif %}
+            </p>
+            <p>
+                {% if not form.password_is_invalid() %}
+                    <span style="color:red;">[{{ form.password.data }} is invalid]</span>
+                {% endif %}
+            </p>
+            {% for error in form.errors %}
+                <span style="color:red;">[{{ error }}]</span>
+            {% endfor %}
+        </form>
+    {{ wtf.quick_form(form, form_type='horizontal', button_map={'login_button': 'primary'}) }}
+    </div>
 {% endblock content %}

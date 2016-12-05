@@ -5,22 +5,26 @@
 
 
 {% block content %}
-    {{util.flashed_messages(dismissible=True)}}   <!-- show flash msg -->
-    <h1>Sign Up</h1>
-    <p>
-        {% if sign_up_form.checker.username_is_exit %}
-            <span style="color:red;">[username is exit]</span>
-        {% endif %}
-    </p>
-    <p>
-        {% if sign_up_form.checker.nickname_is_exit %}
-            <span style="color:red;">[nickname is exit]</span>
-        {% endif %}
-    </p>
-    <p>
-        {% if sign_up_form.checker.email_is_exit %}
-            <span style="color:red;">[email is exit]</span>
-        {% endif %}
-    </p>
-    {{ wtf.quick_form(sign_up_form, button_map={'submit_button': 'primary'}) }}
+    {{ util.flashed_messages(dismissible=True) }}   <!-- show flash msg -->
+    <div class="container">
+
+        <h1>Sign Up x</h1>
+        <p>
+            {% if sign_up_form.checker.username_is_exit %}
+                <span style="color:red;">[username is exit]</span>
+            {% endif %}
+        </p>
+        <p>
+            {% if sign_up_form.checker.nickname_is_exit %}
+                <span style="color:red;">[nickname is exit]</span>
+            {% endif %}
+        </p>
+        <p>
+            {% if sign_up_form.checker.email_is_exit %}
+                <span style="color:red;">[email is exit]</span>
+            {% endif %}
+        </p>
+        {{ wtf.quick_form(sign_up_form, form_type='horizontal', button_map={'submit_button': 'primary'}) }}
+    </div>
+
 {% endblock content %}

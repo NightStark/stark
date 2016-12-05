@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, BooleanField
+from wtforms import StringField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 from .user_op import UserOp
 
@@ -24,10 +24,12 @@ class LoginForm(Form):
 
 
 class SignUpForm(Form):
-    username = StringField('username', validators=[DataRequired()])
-    password = StringField('username', validators=[DataRequired()])
-    nickname = StringField('username', validators=[DataRequired()])
-    email = StringField('username', validators=[DataRequired()])
+    username = StringField('username', validators=[DataRequired()], description='your username')
+    password = StringField('password', validators=[DataRequired()], description='your password')
+    nickname = StringField('nickname', validators=[DataRequired()], description='your nickname')
+    email = StringField('email', validators=[DataRequired()], description='your email')
+    submit_button = SubmitField('Submit Form')
+
     checker = UserOp()
 
     def user_op_check(self):

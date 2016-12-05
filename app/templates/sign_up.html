@@ -1,50 +1,22 @@
 {% extends "base.html" %}
+{% import "wtf.html" as wtf %}
 
 {% block content %}
-<h1>Sign Up</h1>
-<form action="" method="post" name="login">
-    {{ sign_up_form.hidden_tag() }} <!-- without this,will get form.errors -->
+    <h1>Sign Up</h1>
     <p>
-        Please enter your username:<br>
-        {{ sign_up_form.username(size=80) }}<br>
-        {% for error in sign_up_form.username.errors %}
-        <span style="color:red;">[{{ error }}]</span>
-        {% endfor %}
         {% if sign_up_form.checker.username_is_exit %}
-        <span style="color:red;">[username is exit]</span>
+            <span style="color:red;">[username is exit]</span>
         {% endif %}
     </p>
     <p>
-        Please enter your password:<br>
-        {{ sign_up_form.password(size=80) }}<br>
-        {% for error in sign_up_form.password.errors %}
-        <span style="color:red;">[{{ error }}]</span>
-        {% endfor %}
-    </p>
-    <p>
-        Please enter your nickname:<br>
-        {{ sign_up_form.nickname(size=80) }}<br>
-        {% for error in sign_up_form.nickname.errors %}
-        <span style="color:red;">[{{ error }}]</span>
-        {% endfor %}
         {% if sign_up_form.checker.nickname_is_exit %}
-        <span style="color:red;">[nickname is exit]</span>
+            <span style="color:red;">[nickname is exit]</span>
         {% endif %}
     </p>
     <p>
-        Please enter your email:<br>
-        {{ sign_up_form.email(size=80) }}<br>
-        {% for error in sign_up_form.email.errors %}
-        <span style="color:red;">[{{ error }}]</span>
-        {% endfor %}
         {% if sign_up_form.checker.email_is_exit %}
-        <span style="color:red;">[email is exit]</span>
+            <span style="color:red;">[email is exit]</span>
         {% endif %}
     </p>
-
-    {% for error in sign_up_form.errors %}
-    <span style="color:red;">[{{ error }}]</span>
-    {% endfor %}
-    <p><input type="submit" value="Sign Up"></p>
-</form>
+    {{ wtf.quick_form(sign_up_form, button_map={'submit_button': 'primary'}) }}
 {% endblock content %}

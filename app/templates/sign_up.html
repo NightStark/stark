@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% import "wtf.html" as wtf %}
+{% import "fixes.html" as fixes %}
+{% import "utils.html" as util %}
+
 
 {% block content %}
+    {{util.flashed_messages(dismissible=True)}}   <!-- show flash msg -->
     <h1>Sign Up</h1>
     <p>
         {% if sign_up_form.checker.username_is_exit %}

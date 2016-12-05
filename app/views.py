@@ -1,7 +1,7 @@
 from flask import render_template, g, flash, session, redirect, url_for, request
 from app import app, lm
 from .forms import LoginForm, SignUpForm, RemoteCmdForm
-from flask.ext.login import LoginManager, login_manager, login_user, current_user, logout_user
+from flask_login import LoginManager, login_manager, login_user, current_user, logout_user
 from .models import User
 from .user_op import UserOp, get_user_by_id
 from .cmd_op import CmdOp
@@ -92,7 +92,7 @@ def logout():
 
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
-    flash("sign up")
+    flash('info message', 'info')
     sign_up_form = SignUpForm()
     flash(sign_up_form.validate_on_submit())
     if sign_up_form.validate_on_submit():
@@ -105,7 +105,7 @@ def sign_up():
             flash("checker.get_error: username: " + sign_up_form.checker.username_is_exit.__str__() +
                   "   nickname:" + sign_up_form.checker.nickname_is_exit.__str__() +
                   "  email: " + sign_up_form.checker.email_is_exit.__str__() +
-                  "  get_error: " + sign_up_form.checker.get_error.__str__())
+                  "  get_error: " + sign_up_form.checker.get_error.__str__(), 'error')
             return render_template('sign_up.html',
                                    title="Sign Up",
                                    sign_up_form=sign_up_form)
